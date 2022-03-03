@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_price_form_texts",
+  "info": {
+    "displayName": "zipHint",
+    "icon": "align-left",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "hint": {
+      "type": "string"
+    }
+  }
+}

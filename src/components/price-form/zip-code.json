@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_price_form_zip_codes",
+  "info": {
+    "displayName": "zipCode",
+    "icon": "location-arrow"
+  },
+  "options": {},
+  "attributes": {
+    "code": {
+      "type": "string"
+    }
+  }
+}

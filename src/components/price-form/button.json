@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_price_form_buttons",
+  "info": {
+    "displayName": "Button",
+    "icon": "hand-point-up"
+  },
+  "options": {},
+  "attributes": {
+    "joining": {
+      "type": "string",
+      "default": "Show Me Pricing!"
+    },
+    "return": {
+      "type": "string",
+      "default": "Return To Website"
+    },
+    "promo": {
+      "type": "string",
+      "default": "Click Here to Speak Now"
+    }
+  }
+}

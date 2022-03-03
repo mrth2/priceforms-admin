@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_price_form_banners",
+  "info": {
+    "displayName": "Banner",
+    "icon": "audio-description"
+  },
+  "options": {},
+  "attributes": {
+    "media": {
+      "allowedTypes": [
+        "images",
+        "videos"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "text": {
+      "type": "richtext"
+    }
+  }
+}
