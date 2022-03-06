@@ -1,0 +1,81 @@
+{
+  "kind": "collectionType",
+  "collectionName": "form_submissions",
+  "info": {
+    "singularName": "form-submission",
+    "pluralName": "form-submissions",
+    "displayName": "Form Submission",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "owner": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "private": true
+    },
+    "form": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::form.form"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::form-category.form-category"
+    },
+    "flows": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::form-category-flow.form-category-flow"
+    },
+    "data": {
+      "type": "json",
+      "required": false
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "register",
+        "partial",
+        "complete"
+      ],
+      "default": "register"
+    },
+    "progress": {
+      "type": "decimal",
+      "default": 0,
+      "max": 100,
+      "min": 0
+    },
+    "stopAt": {
+      "type": "string"
+    },
+    "minPrice": {
+      "type": "decimal",
+      "default": 0
+    },
+    "maxPrice": {
+      "type": "decimal",
+      "default": 0
+    },
+    "currency": {
+      "type": "enumeration",
+      "enum": [
+        "usd",
+        "eur",
+        "gbp"
+      ],
+      "default": "usd"
+    }
+  }
+}

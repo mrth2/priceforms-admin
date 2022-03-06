@@ -25,10 +25,11 @@
       "type": "uid",
       "required": true
     },
-    "clientOwner": {
+    "owner": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "admin::user"
+      "target": "plugin::users-permissions.user",
+      "private": true
     },
     "title": {
       "pluginOptions": {
