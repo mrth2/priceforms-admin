@@ -1,0 +1,49 @@
+{
+  "collectionName": "components_price_form_question_options",
+  "info": {
+    "displayName": "Question Option",
+    "icon": "question-circle",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "value": {
+      "type": "string",
+      "required": true
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "minPrice": {
+      "type": "decimal",
+      "default": 0
+    },
+    "maxPrice": {
+      "type": "decimal",
+      "default": 0
+    },
+    "currency": {
+      "type": "enumeration",
+      "enum": [
+        "usd",
+        "eur",
+        "gbp"
+      ],
+      "default": "usd"
+    },
+    "discountPercent": {
+      "type": "integer",
+      "default": 0
+    },
+    "nextFlow": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::form-category-flow.form-category-flow"
+    }
+  }
+}

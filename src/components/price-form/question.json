@@ -1,0 +1,60 @@
+{
+  "collectionName": "components_price_form_questions",
+  "info": {
+    "displayName": "Question",
+    "icon": "question",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "question": {
+      "type": "string",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "yes_no",
+        "yes_no_icon",
+        "date_picker",
+        "icon_list",
+        "option_list"
+      ],
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "showEstimate": {
+      "type": "boolean",
+      "default": false
+    },
+    "hasNext": {
+      "type": "boolean",
+      "default": false
+    },
+    "options": {
+      "type": "component",
+      "repeatable": true,
+      "component": "price-form.question-option",
+      "required": false
+    },
+    "nextButtonOnTop": {
+      "type": "boolean",
+      "default": true
+    },
+    "canSelectMulti": {
+      "type": "boolean",
+      "default": false
+    },
+    "otherwiseFlow": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::form-category-flow.form-category-flow"
+    }
+  }
+}

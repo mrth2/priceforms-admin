@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_price_form_register_form_placeholders",
+  "info": {
+    "displayName": "RegisterFormPlaceholder",
+    "icon": "address-book"
+  },
+  "options": {},
+  "attributes": {
+    "firstName": {
+      "type": "string",
+      "default": "First Name"
+    },
+    "lastName": {
+      "type": "string",
+      "default": "Last Name"
+    },
+    "phone": {
+      "type": "string",
+      "default": "Phone"
+    },
+    "email": {
+      "type": "string",
+      "default": "Email Address"
+    }
+  }
+}

@@ -67,8 +67,8 @@
       },
       "type": "dynamiczone",
       "components": [
-        "price-form.zip-code",
-        "price-form.text"
+        "price-form.text",
+        "price-form.zip-code"
       ],
       "required": true
     },
@@ -89,6 +89,32 @@
         }
       },
       "type": "string"
+    },
+    "registerForm": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "price-form.register-form"
+    },
+    "categoryForm": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "price-form.category"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::form-category.form-category",
+      "mappedBy": "form"
     }
   }
 }

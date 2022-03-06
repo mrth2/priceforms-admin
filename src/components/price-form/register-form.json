@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_price_form_register_forms",
+  "info": {
+    "displayName": "RegisterForm",
+    "icon": "address-card",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "placeholder": {
+      "displayName": "RegisterFormPlaceholder",
+      "type": "component",
+      "repeatable": false,
+      "component": "price-form.register-form-placeholder"
+    },
+    "button": {
+      "type": "string"
+    },
+    "progress": {
+      "type": "string",
+      "default": "Information"
+    }
+  }
+}

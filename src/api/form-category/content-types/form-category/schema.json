@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "form_categories",
+  "info": {
+    "singularName": "form-category",
+    "pluralName": "form-categories",
+    "displayName": "Form Category",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "form": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::form.form",
+      "inversedBy": "categories"
+    },
+    "flows": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::form-category-flow.form-category-flow",
+      "mappedBy": "category"
+    }
+  }
+}

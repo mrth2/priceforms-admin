@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_price_form_categories",
+  "info": {
+    "displayName": "Category",
+    "icon": "assistive-listening-systems",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "progress": {
+      "type": "string",
+      "default": "Case Type"
+    }
+  }
+}
