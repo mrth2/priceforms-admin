@@ -44,6 +44,13 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::form-category-flow.form-category-flow"
+    },
+    "iconActive": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

@@ -37,16 +37,15 @@
       "component": "price-form.question",
       "required": true
     },
-    "category": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::form-category.form-category",
-      "inversedBy": "flows"
-    },
     "form": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::form.form"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::form-category.form-category"
     }
   }
 }
