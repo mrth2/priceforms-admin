@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_price_form_flows",
+  "info": {
+    "displayName": "Flows",
+    "icon": "wave-square"
+  },
+  "options": {},
+  "attributes": {
+    "flow": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::form-category-flow.form-category-flow"
+    }
+  }
+}

@@ -33,11 +33,6 @@
       "relation": "oneToOne",
       "target": "api::form-category.form-category"
     },
-    "flows": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::form-category-flow.form-category-flow"
-    },
     "data": {
       "type": "json",
       "required": false
@@ -76,6 +71,12 @@
         "gbp"
       ],
       "default": "usd"
+    },
+    "dataPath": {
+      "displayName": "Flows",
+      "type": "component",
+      "repeatable": true,
+      "component": "price-form.flows"
     }
   }
 }
