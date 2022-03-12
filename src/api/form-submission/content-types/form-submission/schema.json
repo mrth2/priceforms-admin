@@ -77,6 +77,9 @@
       "type": "component",
       "repeatable": true,
       "component": "price-form.flows"
+    },
+    "zip": {
+      "type": "string"
     }
   }
 }
