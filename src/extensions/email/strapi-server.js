@@ -12,7 +12,6 @@ module.exports = (plugin) => {
       throw new ApplicationError('No recipient(s) are given');
     }
 
-    const adminUrl = strapi.config.get('server.url') || `http://${strapi.config.get('server.host')}:${strapi.config.get('server.port')}`;
     const email = {
       to,
       template_id: 'd-666eb7c3184940459756f38e981d134f',
@@ -28,7 +27,7 @@ module.exports = (plugin) => {
           name: "Modric",
           email: "modric@footballer.com"
         },
-        submissionURL: `${adminUrl}/admin/submissions`
+        submissionURL: `https://priceforms.herokuapp.com/admin/submissions`
       }
     };
 

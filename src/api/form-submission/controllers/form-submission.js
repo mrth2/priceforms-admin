@@ -25,5 +25,33 @@ module.exports = createCoreController('api::form-submission.form-submission', ({
     const isOwner = strapi.service('api::form.form').isFormOwner(ctx.state.user);
     if (!isOwner) return ctx.forbidden();
     return await super.findOne(ctx);
+  },
+  async delete(ctx) {
+    if (!ctx.state.user) return ctx.unauthorized();
+
+    const isOwner = strapi.service('api::form.form').isFormOwner(ctx.state.user);
+    if (!isOwner) return ctx.forbidden();
+
+    const { id } = ctx.params;
+
+    const entity = await strapi.db.query('api::form-submission.form-submission').findOne({
+      where: { id },
+      populate: ['form', 'owner'],
+    });
+    // this submission must be owned by current form owner
+    if (!entity) {
+      return ctx.notFound();
+    }
+    if (entity.owner.id !== ctx.state.user.id) {
+      return ctx.forbidden();
+    }
+    try {
+      await strapi.db.query('api::form-submission.form-submission').delete({
+        where: { id },
+      });
+      return ctx.send({ 'message': 'Submission deleted!' });
+    } catch (e) {
+      return ctx.badRequest(e);
+    }
   }
 }));
