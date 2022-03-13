@@ -31,7 +31,7 @@ module.exports = {
         },
         user: {
           name: getFullName(result.user),
-          email: result.email
+          email: result.user.email
         },
         submissionURL: `https://${result.form.subDomain}.${process.env.FRONTEND_DOMAIN}/admin/submissions/${result.id}`
       }
