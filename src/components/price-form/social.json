@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_price_form_socials",
+  "info": {
+    "displayName": "Social",
+    "icon": "at"
+  },
+  "options": {},
+  "attributes": {
+    "facebook": {
+      "type": "string"
+    },
+    "twitter": {
+      "type": "string"
+    },
+    "linkedin": {
+      "type": "string"
+    },
+    "instagram": {
+      "type": "string"
+    },
+    "youtube": {
+      "type": "string"
+    }
+  }
+}
