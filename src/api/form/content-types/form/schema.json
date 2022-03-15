@@ -163,7 +163,17 @@
           "localized": true
         }
       },
-      "component": "price-form.social"
+      "component": "site.social"
+    },
+    "footer": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "site.footer"
     }
   }
 }

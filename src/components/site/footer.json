@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_site_footers",
+  "info": {
+    "displayName": "Footer",
+    "icon": "external-link-square-alt"
+  },
+  "options": {},
+  "attributes": {
+    "policy": {
+      "type": "string"
+    },
+    "sitemap": {
+      "type": "string"
+    },
+    "disclaimer": {
+      "type": "string"
+    },
+    "copyright": {
+      "type": "string",
+      "default": "[YEAR] | All Rights Reserved."
+    }
+  }
+}
