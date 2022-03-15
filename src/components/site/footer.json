@@ -2,7 +2,8 @@
   "collectionName": "components_site_footers",
   "info": {
     "displayName": "Footer",
-    "icon": "external-link-square-alt"
+    "icon": "external-link-square-alt",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -17,7 +18,7 @@
     },
     "copyright": {
       "type": "string",
-      "default": "[YEAR] | All Rights Reserved."
+      "default": "© [YEAR] | All Rights Reserved."
     }
   }
 }
