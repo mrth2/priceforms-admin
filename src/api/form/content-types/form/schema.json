@@ -187,6 +187,29 @@
         "reviewRight"
       ],
       "default": "reviewBottom"
+    },
+    "phone": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "site.phone"
+    },
+    "headerStyle": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "enumeration",
+      "enum": [
+        "logoLeft",
+        "logoCenter"
+      ],
+      "default": "logoLeft"
     }
   }
 }

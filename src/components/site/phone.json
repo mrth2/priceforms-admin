@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_site_phones",
+  "info": {
+    "displayName": "phone",
+    "icon": "phone-alt"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "number": {
+      "type": "string"
+    }
+  }
+}
