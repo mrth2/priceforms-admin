@@ -6,7 +6,31 @@
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
+async function populateSubmission(strapi, id) {
+  const submission = await strapi.db.query('api::form-submission.form-submission').findOne({
+    where: { id },
+    populate: ['subscriber', 'form', 'category'],
+  })
+  return submission
+}
+
 module.exports = createCoreController('api::form-submission.form-submission', ({ strapi }) => ({
+  async create(ctx) {
+    const response = await super.create(ctx);
+    // populate all the fields of created submission
+    return {
+      data: await populateSubmission(strapi, response.data.id),
+      meta: response.meta,
+    }
+  },
+  async update(ctx) {
+    const response = await super.update(ctx);
+    // populate all the fields of updated submission
+    return {
+      data: await populateSubmission(strapi, response.data.id),
+      meta: response.meta,
+    }
+  },
   async find(ctx) {
     if (!ctx.state.user) return ctx.unauthorized();
 
