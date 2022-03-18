@@ -12,11 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "user": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
-    },
     "owner": {
       "type": "relation",
       "relation": "oneToOne",
@@ -80,6 +75,12 @@
     },
     "zip": {
       "type": "string"
+    },
+    "subscriber": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::subscriber.subscriber",
+      "inversedBy": "submissions"
     }
   }
 }
