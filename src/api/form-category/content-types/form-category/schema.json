@@ -61,6 +61,15 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::form-category-flow.form-category-flow"
+    },
+    "ordering": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "integer",
+      "default": 0
     }
   }
 }
