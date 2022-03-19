@@ -57,11 +57,6 @@
         }
       }
     },
-    "startFlow": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::form-category-flow.form-category-flow"
-    },
     "ordering": {
       "pluginOptions": {
         "i18n": {
@@ -70,6 +65,16 @@
       },
       "type": "integer",
       "default": 0
+    },
+    "flows": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "component": "price-form.flows"
     }
   }
 }
