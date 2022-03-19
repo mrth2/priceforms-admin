@@ -10,12 +10,24 @@ async function populateSubmission(strapi, id) {
   const submission = await strapi.db.query('api::form-submission.form-submission').findOne({
     where: { id },
     populate: ['subscriber', 'form', 'category'],
-  })
-  return submission
+  });
+  return submission;
+}
+
+async function getFormOwnerId(strapi, ctx) {
+  const form = await strapi.db.query('api::form.form').findOne({
+    where: {
+      id: ctx.request.body.data.form?.id || ctx.request.body.data.form
+    },
+    populate: ['owner'],
+  });
+  ctx.request.body.data.owner = form.owner.id;
 }
 
 module.exports = createCoreController('api::form-submission.form-submission', ({ strapi }) => ({
   async create(ctx) {
+    // overwrite body data with owner Id
+    await getFormOwnerId(strapi, ctx);
     const response = await super.create(ctx);
     // populate all the fields of created submission
     return {
@@ -24,6 +36,7 @@ module.exports = createCoreController('api::form-submission.form-submission', ({
     }
   },
   async update(ctx) {
+    await getFormOwnerId(strapi, ctx);
     const response = await super.update(ctx);
     // populate all the fields of updated submission
     return {
