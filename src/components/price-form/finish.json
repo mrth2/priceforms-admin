@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_price_form_finishes",
+  "info": {
+    "displayName": "Finish",
+    "icon": "infinity",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "THANK YOU, [NAME]"
+    },
+    "message": {
+      "type": "string",
+      "default": "We will reach out to discuss your case in more detail shortly."
+    },
+    "buttonReturn": {
+      "type": "string",
+      "default": "RETURN TO WEBSITE"
+    },
+    "buttonPromo": {
+      "type": "string"
+    },
+    "promoLink": {
+      "type": "string"
+    },
+    "returnLink": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_price_form_zip_buttons",
+  "info": {
+    "displayName": "ZipButton",
+    "icon": "hand-pointer"
+  },
+  "options": {},
+  "attributes": {
+    "button": {
+      "type": "string"
+    }
+  }
+}

@@ -69,19 +69,10 @@
       "type": "dynamiczone",
       "components": [
         "price-form.text",
-        "price-form.zip-code"
+        "price-form.zip-code",
+        "price-form.zip-button"
       ],
       "required": true
-    },
-    "button": {
-      "type": "component",
-      "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "price-form.button"
     },
     "term": {
       "pluginOptions": {
@@ -210,6 +201,26 @@
         "logoCenter"
       ],
       "default": "logoLeft"
+    },
+    "estimationPage": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "price-form.estimation"
+    },
+    "thankyouPage": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "price-form.finish"
     }
   }
 }

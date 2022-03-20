@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_price_form_estimations",
+  "info": {
+    "displayName": "Estimation",
+    "icon": "trophy"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "YOUR CASE ESTIMATE IS:"
+    },
+    "minimum": {
+      "type": "string",
+      "default": "Minimum"
+    },
+    "maximum": {
+      "type": "string",
+      "default": "Maximum"
+    },
+    "note": {
+      "type": "text",
+      "default": "*This is the fair value range that we use; however be sure to have a       skilled attorney review the details of your case as there are hundreds of       factors that may either increase or decrease this value."
+    }
+  }
+}
