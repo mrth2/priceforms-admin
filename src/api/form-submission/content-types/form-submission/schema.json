@@ -81,6 +81,10 @@
       "relation": "manyToOne",
       "target": "api::subscriber.subscriber",
       "inversedBy": "submissions"
+    },
+    "discountPercent": {
+      "type": "integer",
+      "default": 0
     }
   }
 }
