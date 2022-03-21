@@ -221,6 +221,12 @@
         }
       },
       "component": "price-form.finish"
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::form-review.form-review",
+      "mappedBy": "form"
     }
   }
 }

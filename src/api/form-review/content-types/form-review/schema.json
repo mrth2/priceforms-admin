@@ -1,0 +1,86 @@
+{
+  "kind": "collectionType",
+  "collectionName": "form_reviews",
+  "info": {
+    "singularName": "form-review",
+    "pluralName": "form-reviews",
+    "displayName": "Form Review",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "name": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "message": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "richtext",
+      "required": true
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "rating": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "integer",
+      "required": true,
+      "max": 5,
+      "min": 1,
+      "default": 5
+    },
+    "at": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "date",
+      "required": true
+    },
+    "ordering": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "integer"
+    },
+    "form": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::form.form",
+      "inversedBy": "reviews"
+    }
+  }
+}
