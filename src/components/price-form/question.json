@@ -22,7 +22,8 @@
         "yes_no_icon",
         "date_picker",
         "icon_list",
-        "option_list"
+        "option_list",
+        "image_list"
       ],
       "required": true
     },
@@ -55,6 +56,14 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::form-category-flow.form-category-flow"
+    },
+    "backButtonOnBottom": {
+      "type": "boolean",
+      "default": false
+    },
+    "canSelectNone": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
