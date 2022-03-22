@@ -22,6 +22,8 @@
         "yes_no_icon",
         "date_picker",
         "icon_list",
+        "text_input",
+        "text_area",
         "option_list",
         "image_list"
       ],
