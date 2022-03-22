@@ -75,6 +75,11 @@
       "relation": "manyToOne",
       "target": "api::subscriber.subscriber",
       "inversedBy": "submissions"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::form-category.form-category"
     }
   }
 }
