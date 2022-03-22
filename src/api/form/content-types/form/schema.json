@@ -69,8 +69,8 @@
       "type": "dynamiczone",
       "components": [
         "price-form.text",
-        "price-form.zip-code",
-        "price-form.zip-button"
+        "price-form.zip-button",
+        "price-form.zip-code"
       ],
       "required": true
     },

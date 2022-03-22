@@ -2,20 +2,25 @@
   "collectionName": "components_price_form_banners",
   "info": {
     "displayName": "Banner",
-    "icon": "audio-description"
+    "icon": "audio-description",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "media": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "videos"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "text": {
       "type": "richtext"
+    },
+    "youtube": {
+      "type": "string"
     }
   }
 }
