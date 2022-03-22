@@ -46,11 +46,16 @@
       "target": "api::form-category-flow.form-category-flow"
     },
     "iconActive": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "bonusPercent": {
+      "type": "integer",
+      "default": 0
     }
   }
 }
