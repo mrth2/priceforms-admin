@@ -9,7 +9,7 @@ const { createCoreController } = require('@strapi/strapi').factories;
 async function populateSubmission(strapi, id) {
   const submission = await strapi.db.query('api::form-submission.form-submission').findOne({
     where: { id },
-    populate: ['subscriber', 'form', 'category'],
+    populate: ['subscriber', 'form', 'category', 'categories'],
   });
   return submission;
 }
