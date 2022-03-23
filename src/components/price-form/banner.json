@@ -19,8 +19,9 @@
     "text": {
       "type": "richtext"
     },
-    "youtube": {
-      "type": "string"
+    "remoteVideo": {
+      "type": "string",
+      "regex": "(youtube|vimeo).com"
     },
     "autoplay": {
       "type": "boolean",
