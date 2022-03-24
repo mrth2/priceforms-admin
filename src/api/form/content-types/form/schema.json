@@ -227,6 +227,14 @@
       "relation": "oneToMany",
       "target": "api::form-review.form-review",
       "mappedBy": "form"
+    },
+    "gtagId": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
     }
   }
 }
