@@ -4,7 +4,8 @@
   "info": {
     "singularName": "form-email-template",
     "pluralName": "form-email-templates",
-    "displayName": "Form Email Template"
+    "displayName": "Form Email Template",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -47,7 +48,7 @@
       },
       "type": "string"
     },
-    "fromEmail": {
+    "replyTo": {
       "pluginOptions": {
         "i18n": {
           "localized": true

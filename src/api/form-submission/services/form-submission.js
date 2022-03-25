@@ -73,17 +73,18 @@ module.exports = createCoreService('api::form-submission.form-submission', ({ st
         const subscriberNotifyEmail = {
           from: {
             email: 'noreply@priceforms.net',
-            name: clientName
+            name: template.fromName || clientName,
           },
           to: {
             email: submission.subscriber.email,
             name: subscriberName
           },
           replyTo: {
-            email: submission.owner.email,
-            name: clientName
+            email: template.replyTo || submission.owner.email,
+            name: template.fromName || clientName,
           },
           template_id: 'd-07bf0490105640b48c6607f5137af523',
+          subject: template.subject,
           dynamic_template_data: {
             body: template.body.replace(/\{\{\{user.name\}\}\}/g, subscriberName),
           }
