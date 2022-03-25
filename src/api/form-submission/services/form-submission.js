@@ -79,7 +79,11 @@ module.exports = createCoreService('api::form-submission.form-submission', ({ st
           template_id: 'd-07bf0490105640b48c6607f5137af523',
           subject: template.subject,
           dynamic_template_data: {
-            body: template.body.replace(/\{\{\{user.name\}\}\}/g, subscriberName),
+            body: template.body
+              // parse user name
+              .replace(/\{\{\{user.name\}\}\}/g, subscriberName)
+              // parse markdown enter
+              .replace(/\\n/g, '<br/>'),
           }
         }
         emails.push(subscriberNotifyEmail);
