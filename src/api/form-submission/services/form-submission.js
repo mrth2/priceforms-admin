@@ -6,4 +6,79 @@
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService('api::form-submission.form-submission');
+module.exports = createCoreService('api::form-submission.form-submission', ({ strapi }) => ({
+  async notifyNewSubmission(submissionId) {
+    // get submission
+    const submission = await strapi.db.query('api::form-submission.form-submission').findOne({
+      where: {
+        id: submissionId
+      },
+      populate: ['form', 'category', 'subscriber', 'owner']
+    });
+    // auto send email to form owner when the submission is updated with status complete
+    // ignore notified submission to avoid duplicate emails
+    if (submission.status === 'complete' && !submission.notified && submission.owner) {
+      // strapi.log.info('-- sending email to form owner');
+      const email = {
+        // from: 'alert@priceforms.net',
+        from: {
+          email: 'noreply@priceforms.net',
+          name: 'PriceForms'
+        },
+        to: {
+          email: submission.owner.email,
+          name: strapi.service('api::subscriber.subscriber').getFullName(submission.owner)
+        },
+        replyTo: 'admin@priceforms.net',
+        template_id: 'd-666eb7c3184940459756f38e981d134f',
+        dynamic_template_data: {
+          client: {
+            name: strapi.service('api::subscriber.subscriber').getFullName(submission.owner)
+          },
+          form: {
+            name: submission.form.subDomain.charAt(0) + submission.form.subDomain.substring(1).toLowerCase(),
+            case: submission.category.title
+          },
+          user: {
+            name: strapi.service('api::subscriber.subscriber').getFullName(submission.subscriber),
+            email: submission.subscriber.email,
+            phone: submission.subscriber.phone,
+          },
+          submissionURL: `https://${submission.form.subDomain}.${process.env.FRONTEND_DOMAIN}/admin/submissions/${submission.id}`,
+          submissionData: submission.data.map(d => (
+            `<li><strong>${d.title}:</strong> ${d.answer}</li>`
+          )),
+        }
+      };
+      if (submission.form.emailReceivers) {
+        const extraReceivers = submission.form.emailReceivers.split('\n');
+        if (extraReceivers.length) {
+          email.cc = extraReceivers;
+        }
+      }
+      try {
+        strapi
+          .plugin('email')
+          .service('email')
+          .send(email)
+          .then(async () => {
+            // strapi.log.info('-- email sent');
+            await strapi.db.query('api::form-submission.form-submission').update({
+              where: {
+                id: submission.id
+              },
+              data: {
+                notified: true
+              }
+            })
+          });
+      } catch (e) {
+        if (e.statusCode === 400) {
+          throw new ApplicationError(e.message);
+        } else {
+          throw new Error(`Couldn't send test email: ${e.message}.`);
+        }
+      }
+    }
+  }
+}));

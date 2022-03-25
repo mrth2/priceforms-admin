@@ -80,6 +80,10 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::form-category.form-category"
+    },
+    "notified": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

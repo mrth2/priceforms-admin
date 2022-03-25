@@ -235,6 +235,14 @@
         }
       },
       "type": "string"
+    },
+    "emailReceivers": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "text"
     }
   }
 }
