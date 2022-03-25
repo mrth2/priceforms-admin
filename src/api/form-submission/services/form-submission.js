@@ -7,14 +7,7 @@
 const { createCoreService } = require('@strapi/strapi').factories;
 
 module.exports = createCoreService('api::form-submission.form-submission', ({ strapi }) => ({
-  async notifyNewSubmission(submissionId) {
-    // get submission
-    const submission = await strapi.db.query('api::form-submission.form-submission').findOne({
-      where: {
-        id: submissionId
-      },
-      populate: ['form', 'category', 'subscriber', 'owner']
-    });
+  async notifyNewSubmission(submission) {
     // auto send email to form owner when the submission is updated with status complete
     // ignore notified submission to avoid duplicate emails
     if (submission.status === 'complete' && !submission.notified && submission.owner) {
