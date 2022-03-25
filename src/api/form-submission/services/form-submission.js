@@ -19,28 +19,33 @@ module.exports = createCoreService('api::form-submission.form-submission', ({ st
     // ignore notified submission to avoid duplicate emails
     if (submission.status === 'complete' && !submission.notified && submission.owner) {
       // strapi.log.info('-- sending email to form owner');
-      const email = {
-        // from: 'alert@priceforms.net',
+      const clientName = strapi.service('api::subscriber.subscriber').getFullName(submission.owner);
+      const subscriberName = strapi.service('api::subscriber.subscriber').getFullName(submission.subscriber);
+      // email to owner
+      const ownerNotifyEmail = {
         from: {
           email: 'noreply@priceforms.net',
           name: 'PriceForms'
         },
         to: {
           email: submission.owner.email,
-          name: strapi.service('api::subscriber.subscriber').getFullName(submission.owner)
+          name: clientName
         },
-        replyTo: 'admin@priceforms.net',
+        replyTo: {
+          email: 'admin@priceforms.net',
+          name: 'PriceForms Admin'
+        },
         template_id: 'd-666eb7c3184940459756f38e981d134f',
         dynamic_template_data: {
           client: {
-            name: strapi.service('api::subscriber.subscriber').getFullName(submission.owner)
+            name: clientName
           },
           form: {
             name: submission.form.subDomain.charAt(0) + submission.form.subDomain.substring(1).toLowerCase(),
             case: submission.category.title
           },
           user: {
-            name: strapi.service('api::subscriber.subscriber').getFullName(submission.subscriber),
+            name: subscriberName,
             email: submission.subscriber.email,
             phone: submission.subscriber.phone,
           },
@@ -53,14 +58,40 @@ module.exports = createCoreService('api::form-submission.form-submission', ({ st
       if (submission.form.emailReceivers) {
         const extraReceivers = submission.form.emailReceivers.split('\n');
         if (extraReceivers.length) {
-          email.cc = extraReceivers;
+          ownerNotifyEmail.cc = extraReceivers;
         }
       }
+      // email to subscriber
+      const template = await strapi.db.query('api::form-email-template.form-email-template').findOne({
+        where: {
+          form: submission.form.id,
+          type: 'subscriber_notification'
+        }
+      });
+      const emails = [ownerNotifyEmail];
+      if (template) {
+        const subscriberNotifyEmail = {
+          from: {
+            email: 'noreply@priceforms.net',
+            name: clientName
+          },
+          to: {
+            email: submission.subscriber.email,
+            name: subscriberName
+          },
+          replyTo: {
+            email: submission.owner.email,
+            name: clientName
+          },
+          template_id: 'd-07bf0490105640b48c6607f5137af523',
+          dynamic_template_data: {
+            body: template.body.replace(/\{\{\{user.name\}\}\}/g, subscriberName),
+          }
+        }
+        emails.push(subscriberNotifyEmail);
+      };
       try {
-        strapi
-          .plugin('email')
-          .service('email')
-          .send(email)
+        Promise.all(emails.map(email => strapi.plugin('email').service('email').send(email)))
           .then(async () => {
             // strapi.log.info('-- email sent');
             await strapi.db.query('api::form-submission.form-submission').update({
