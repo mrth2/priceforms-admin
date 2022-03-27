@@ -36,5 +36,24 @@ module.exports = ({ env }) => ({
         tracing: false,
       }
     }
-  }
+  },
+  "rest-cache": {
+    config: {
+      provider: {
+        name: "memory",
+        options: {
+          max: 32767,
+          maxAge: 3600,
+        },
+      },
+      strategy: {
+        contentTypes: [
+          // list of Content-Types UID to cache
+          "api::form.form",
+          "api::form-category.form-category",
+          "api::form-category-flow.form-category-flow",
+        ],
+      },
+    },
+  },
 });
