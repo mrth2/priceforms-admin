@@ -25,7 +25,7 @@ module.exports = ({ env }) => ({
       }
     }
   },
-  graphql: {
+  /* graphql: {
     config: {
       endpoint: '/graphql',
       shadowCRUD: true,
@@ -36,7 +36,7 @@ module.exports = ({ env }) => ({
         tracing: false,
       }
     }
-  },
+  }, */
   "rest-cache": {
     config: {
       provider: {
