@@ -14,6 +14,10 @@ function createMagicLinkController({ strapi }) {
      * @param {Context} ctx
      */
     async generate(ctx) {
+      ctx.send({
+        msg: 'hello'
+      });
+      return;
       const { contentType, params, wildcard } = ctx.request.body;
 
       if (!contentType) {

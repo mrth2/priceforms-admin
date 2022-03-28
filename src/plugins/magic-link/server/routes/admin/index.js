@@ -14,7 +14,7 @@ module.exports = {
           'admin::isAuthenticatedAdmin',
           {
             name: 'plugin::content-manager.hasPermissions',
-            config: { actions: [`plugin::${pluginId}.magic-link.generate`] },
+            config: { actions: [`plugin::${pluginId}.magicLink`] },
           },
         ],
       },
