@@ -56,4 +56,8 @@ module.exports = ({ env }) => ({
       },
     },
   },
+  'magic-link': {
+    enabled: true,
+    resolve: './src/plugins/magic-link'
+  }
 });
