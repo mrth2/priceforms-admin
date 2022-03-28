@@ -4,8 +4,8 @@ module.exports = {
   actions: [
     {
       section: 'plugins',
-      displayName: 'Magic Link',
-      uid: 'magiclink.access',
+      displayName: 'Generate magic link',
+      uid: 'magiclink.generate',
       subCategory: 'access',
       pluginName: 'magic-link',
     },
