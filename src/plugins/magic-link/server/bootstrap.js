@@ -22,12 +22,6 @@ const passworlessActions = {
 };
 
 module.exports = async ({ strapi }) => {
-  strapi.store({
-    environment: '',
-    type: 'plugin',
-    name: 'magic-link',
-  });
-
   await strapi.admin.services.permission.actionProvider.registerMany(
     passworlessActions.actions
   );
