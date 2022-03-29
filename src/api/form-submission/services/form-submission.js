@@ -6,7 +6,10 @@
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService('api::form-submission.form-submission', ({ strapi }) => ({
+module.exports = createCoreService('api::form-submission.form-submission', () => ({
+  getFormDashboardUrl(form) {
+    return `https://${form.subDomain}.${process.env.FRONTEND_DOMAIN}`;
+  },
   async notifyNewSubmission(submission) {
     // auto send email to form owner when the submission is updated with status complete
     // ignore notified submission to avoid duplicate emails
@@ -42,7 +45,7 @@ module.exports = createCoreService('api::form-submission.form-submission', ({ st
             email: submission.subscriber.email,
             phone: submission.subscriber.phone,
           },
-          submissionURL: `https://${submission.form.subDomain}.${process.env.FRONTEND_DOMAIN}/admin/submissions/${submission.id}`,
+          submissionURL: `${strapi.service('api::form-submission.form-submission').getFormDashboardUrl(submission.form)}/admin/submissions/${submission.id}`,
           submissionData: submission.data.map(d => (
             `<li><strong>${d.title}:</strong> ${d.answer}</li>`
           )),
