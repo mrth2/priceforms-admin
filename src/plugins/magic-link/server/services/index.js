@@ -1,7 +1,7 @@
-'use strict';
+"use strict"
 
-const myService = require('./my-service');
+const passwordless = require("./passwordless");
 
 module.exports = {
-  myService,
+  passwordless
 };

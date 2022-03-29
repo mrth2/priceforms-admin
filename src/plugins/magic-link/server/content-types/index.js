@@ -1,3 +1,7 @@
-'use strict';
+"use strict"
 
-module.exports = {};
+const token = require("./token");
+
+module.exports = {
+  token
+};

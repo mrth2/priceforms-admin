@@ -1,3 +1,9 @@
-'use strict';
+"use strict"
 
-module.exports = {};
+const rateLimit = require("./rateLimit");
+const isAuthenticated = require("./isAuthenticated");
+
+module.exports = {
+  isAuthenticated,
+  rateLimit
+};

@@ -1,11 +1,9 @@
-'use strict';
+"use strict"
 
-const { createMagicLinkController: magicLink } = require('./magic-link');
-
-const controllers = {
-  magicLink,
-};
+const magicLink = require("./magic-link");
+const auth = require("./auth");
 
 module.exports = {
-  controllers,
+  auth,
+  'magic-link': magicLink
 };

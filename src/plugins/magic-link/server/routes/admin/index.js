@@ -1,23 +1,8 @@
 'use strict';
 
-const pluginId = require('../../pluginId');
+const generateRoutes = require('./generate');
 
 module.exports = {
   type: 'admin',
-  routes: [
-    {
-      method: 'POST',
-      path: '/generate',
-      handler: 'magicLink.generate',
-      config: {
-        policies: [
-          'admin::isAuthenticatedAdmin',
-          {
-            name: 'plugin::content-manager.hasPermissions',
-            config: { actions: [`plugin::${pluginId}.magicLink`] },
-          },
-        ],
-      },
-    },
-  ],
+  routes: [...generateRoutes],
 };

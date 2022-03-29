@@ -1,52 +1,19 @@
 'use strict';
 
 /**
- * @typedef {import('@strapi/strapi').Strapi} Strapi
- * @typedef {import('koa').Context} Context
+ * passwordless.js controller
+ *
+ * @description: A set of functions called "actions" of the `passwordless` plugin.
  */
 
-/**
- * @param {{ strapi: Strapi }} strapi
- */
-function createMagicLinkController({ strapi }) {
-  return {
-    /**
-     * @param {Context} ctx
-     */
-    async generate(ctx) {
-      ctx.send({
-        msg: 'hello'
-      });
-      return;
-      const { contentType, params, wildcard } = ctx.request.body;
-
-      if (!contentType) {
-        ctx.badRequest('contentType is required');
-        return;
-      }
-
-      const cacheConfigService = strapi
-        .plugin('rest-cache')
-        .service('cacheConfig');
-
-      const cacheStoreService = strapi
-        .plugin('rest-cache')
-        .service('cacheStore');
-
-      if (!cacheConfigService.isCached(contentType)) {
-        ctx.badRequest('contentType is not cached', { contentType });
-        return;
-      }
-
-      await cacheStoreService.clearByUid(contentType, params, wildcard);
-
-      // send no-content status
-      // ctx.status = 204;
-      ctx.body = {};
-    },
-  };
-}
-
+const _ = require("lodash");
 module.exports = {
-  createMagicLinkController,
+  generate: async (ctx) => {
+    // Add your own logic here.
+
+    // Send 200 `ok`
+    ctx.send({
+      message: 'ok'
+    });
+  },
 };
