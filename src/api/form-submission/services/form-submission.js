@@ -45,10 +45,13 @@ module.exports = createCoreService('api::form-submission.form-submission', () =>
             email: submission.subscriber.email,
             phone: submission.subscriber.phone,
           },
-          submissionURL: `${strapi.service('api::form-submission.form-submission').getFormDashboardUrl(submission.form)}/admin/submissions/${submission.id}`,
-          submissionData: submission.data.map(d => (
-            `<li><strong>${d.title}:</strong> ${d.answer}</li>`
-          )),
+          submission: {
+            zip: submission.zip,
+            url: `${strapi.service('api::form-submission.form-submission').getFormDashboardUrl(submission.form)}/admin/submissions/${submission.id}`,
+            data: submission.data.map(d => (
+              `<li><strong>${d.title}:</strong> ${d.answer}</li>`
+            ))
+          },
         }
       };
       if (submission.form.emailReceivers) {
