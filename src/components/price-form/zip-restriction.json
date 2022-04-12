@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_price_form_zip_restrictions",
+  "info": {
+    "displayName": "ZipRestriction",
+    "icon": "shield-alt"
+  },
+  "options": {},
+  "attributes": {
+    "requireDigit": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "limitDigits": {
+      "type": "integer",
+      "default": 5,
+      "required": true
+    },
+    "checkCode": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}

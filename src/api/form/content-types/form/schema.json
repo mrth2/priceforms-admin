@@ -74,6 +74,18 @@
       ],
       "required": true
     },
+    "zipRestriction": {
+      "displayName": "ZipRestriction",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "component": "price-form.zip-restriction",
+      "required": true
+    },
     "term": {
       "pluginOptions": {
         "i18n": {
