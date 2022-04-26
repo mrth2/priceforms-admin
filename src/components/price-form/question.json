@@ -20,12 +20,13 @@
       "enum": [
         "yes_no",
         "yes_no_icon",
-        "date_picker",
         "icon_list",
+        "option_list",
+        "image_list",
         "text_input",
         "text_area",
-        "option_list",
-        "image_list"
+        "date_picker",
+        "estimation"
       ],
       "required": true
     },
