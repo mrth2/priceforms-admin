@@ -46,6 +46,15 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::form-category.form-category"
+    },
+    "skipEstimation": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": false
     }
   }
 }
