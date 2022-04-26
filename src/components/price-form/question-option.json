@@ -60,6 +60,29 @@
     "endOfFlow": {
       "type": "boolean",
       "default": false
+    },
+    "unit": {
+      "type": "enumeration",
+      "enum": [
+        "Dollar",
+        "SquareFeet",
+        "DollarSquareFeet"
+      ],
+      "default": "Dollar"
+    },
+    "unitCapacity": {
+      "type": "integer",
+      "default": 1
+    },
+    "bonusAmount": {
+      "type": "integer"
+    },
+    "isInput": {
+      "type": "boolean",
+      "default": false
+    },
+    "dividePriceBy": {
+      "type": "integer"
     }
   }
 }
