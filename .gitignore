@@ -115,3 +115,4 @@ build
 .env.production
 priceforms.dump
 latest.dump
+.env.local
