@@ -21,6 +21,12 @@
     },
     "youtube": {
       "type": "string"
+    },
+    "googleMap": {
+      "type": "string"
+    },
+    "yelp": {
+      "type": "string"
     }
   }
 }
