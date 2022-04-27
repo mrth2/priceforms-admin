@@ -18,6 +18,10 @@
     "hasNext": {
       "type": "boolean",
       "default": false
+    },
+    "buttonOnTop": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
