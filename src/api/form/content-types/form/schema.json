@@ -266,6 +266,19 @@
         }
       },
       "component": "price-form.color"
+    },
+    "font": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "enumeration",
+      "enum": [
+        "Muli",
+        "Poppins"
+      ],
+      "default": "Muli"
     }
   }
 }
