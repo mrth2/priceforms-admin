@@ -2,17 +2,26 @@
   "collectionName": "components_price_form_colors",
   "info": {
     "displayName": "color",
-    "icon": "palette"
+    "icon": "palette",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "button": {
-      "type": "string",
-      "regex": "^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$"
-    },
     "progress": {
-      "type": "string",
-      "regex": "^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$"
+      "type": "enumeration",
+      "enum": [
+        "blue",
+        "red"
+      ],
+      "default": "blue"
+    },
+    "button": {
+      "type": "enumeration",
+      "enum": [
+        "blue",
+        "red"
+      ],
+      "default": "blue"
     }
   }
 }
