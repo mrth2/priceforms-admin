@@ -67,6 +67,10 @@
     "canSelectNone": {
       "type": "boolean",
       "default": false
+    },
+    "showDividedPrice": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
