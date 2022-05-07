@@ -14,7 +14,7 @@ module.exports = createCoreService('api::form-submission.form-submission', () =>
     // auto send email to form owner when the submission is updated with status complete
     // ignore notified submission to avoid duplicate emails
     if (submission.status === 'complete' && !submission.notified && submission.owner) {
-      // strapi.log.info('-- sending email to form owner');
+      // strapi.log.info(`-- Sending email to ${submission.owner.email} from user ${clientName} (${submission.subscriber.email})`);
       const clientName = strapi.service('api::subscriber.subscriber').getFullName(submission.owner);
       const subscriberName = strapi.service('api::subscriber.subscriber').getFullName(submission.subscriber);
       // email to owner
@@ -109,11 +109,14 @@ module.exports = createCoreService('api::form-submission.form-submission', () =>
           });
       } catch (e) {
         if (e.statusCode === 400) {
-          throw new ApplicationError(e.message);
+          strapi.log.error(e.message);
         } else {
-          throw new Error(`Couldn't send test email: ${e.message}.`);
+          strapi.log.error(`Couldn't send test email: ${e.message}.`);
         }
       }
+    }
+    else {
+      // strapi.log.info(`-- Submission from ${submission?.subscriber?.email} is not completed yet (${submission.status}). Skipping email notification.`);
     }
   }
 }));
