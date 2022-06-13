@@ -59,5 +59,9 @@ module.exports = ({ env }) => ({
   'magic-link': {
     enabled: true,
     resolve: './src/plugins/magic-link'
+  },
+  'embed-code': {
+    enabled: true,
+    resolve: './src/plugins/embed-code'
   }
 });
