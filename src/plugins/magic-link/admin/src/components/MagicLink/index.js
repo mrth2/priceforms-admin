@@ -39,7 +39,6 @@ function MagicLink() {
   }, []);
   return (
     <Button
-      variant="primary"
       loading={loading}
       startIcon={<Eye />}
       onClick={signIn}
