@@ -1,12 +1,12 @@
 {
-  "name": "magic-link",
+  "name": "embed-code",
   "version": "0.0.0",
   "description": "This is the description of the plugin.",
   "strapi": {
-    "displayName": "Magic Link",
-    "name": "magic-link",
-    "description": "Add the magic link to super admin to quickly login to any client dashboard",
-    "kind": "plugin"
+    "name": "embed-code",
+    "description": "Create embeddable code per form to embed in any website",
+    "kind": "plugin",
+    "displayName": "Embed Code"
   },
   "dependencies": {},
   "author": {
