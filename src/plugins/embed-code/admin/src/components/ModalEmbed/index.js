@@ -56,9 +56,9 @@ function ModalEmbed({ initialData, closeModal }) {
 
   const modalModeStyle = `
     .backdrop_${formUid} {
+      display: none;
       align-items: center;
       bottom: -1000px;
-      display: flex;
       justify-content: center;
       left: -1000px;
       padding: 1030px;
@@ -70,6 +70,7 @@ function ModalEmbed({ initialData, closeModal }) {
       z-index: -1;
     }
     .backdrop_${formUid}.open_${formUid} {
+      display: flex;
       background-color: rgba(119, 119, 119, 0.7);
       pointer-events: auto;
       transition: background-color 300ms ease-in-out;
@@ -135,38 +136,41 @@ function ModalEmbed({ initialData, closeModal }) {
 
   const modalModeScript = `
     function openForm_${formUid}() {
-      ${iframeScript}
+      var backdrop = document.querySelector('.backdrop_${formUid}');
+      if (!backdrop) {
+        ${iframeScript}
 
-      var style = document.createElement('style');
-      style.type = "text/css";
-      style.innerHTML = "${modalModeStyle.trim().replace(/([\n\t])/g, '').replace(/\s\s/g, '')}";
-      document.head.appendChild(style);
+        var style = document.createElement('style');
+        style.type = "text/css";
+        style.innerHTML = "${modalModeStyle.trim().replace(/([\n\t])/g, '').replace(/\s\s/g, '')}";
+        document.head.appendChild(style);
 
-      var backdrop = document.createElement('div');
-      backdrop.classList.add('backdrop_${formUid}');
-      
-      var lightbox = document.createElement('div');
-      lightbox.classList.add('lightbox_${formUid}');
+        var backdrop = document.createElement('div');
+        backdrop.classList.add('backdrop_${formUid}');
+        
+        var lightbox = document.createElement('div');
+        lightbox.classList.add('lightbox_${formUid}');
 
-      var iframeWrapper = document.createElement('div');
-      iframeWrapper.classList.add('iframeWrapper_${formUid}');
+        var iframeWrapper = document.createElement('div');
+        iframeWrapper.classList.add('iframeWrapper_${formUid}');
 
-      iframeWrapper.appendChild(iframe);
+        iframeWrapper.appendChild(iframe);
 
-      var closeBtn = document.createElement('button');
-      closeBtn.classList.add('close_${formUid}');
-      closeBtn.type = 'button';
-      closeBtn.role = 'button';
-      closeBtn.innerText = 'Close';
-      closeBtn.addEventListener('click', function() {
-        backdrop.classList.remove('open_${formUid}');
-      });
+        var closeBtn = document.createElement('button');
+        closeBtn.classList.add('close_${formUid}');
+        closeBtn.type = 'button';
+        closeBtn.role = 'button';
+        closeBtn.innerText = 'Close';
+        closeBtn.addEventListener('click', function() {
+          backdrop.classList.remove('open_${formUid}');
+        });
 
-      lightbox.appendChild(iframeWrapper);
-      lightbox.appendChild(closeBtn);
-      backdrop.appendChild(lightbox);
+        lightbox.appendChild(iframeWrapper);
+        lightbox.appendChild(closeBtn);
+        backdrop.appendChild(lightbox);
 
-      document.body.appendChild(backdrop);
+        document.body.appendChild(backdrop);
+      }
       setTimeout(function() {
         backdrop.classList.add('open_${formUid}');
       }, 50);
