@@ -81,16 +81,48 @@ function ModalEmbed({ initialData, closeModal }) {
       max-height: 100%;
       max-width: 100%;
       position: relative;
+      border-radius: 8px;
     }
     .iframeWrapper_${styleId} {
       -webkit-overflow-scrolling: touch;
       overflow: auto;
-      width: max(90vw, 600px);
+      width: min(90vw, 680px);
       max-height: 100%;
       max-width: 100%;
       border-radius: 8px;
     }
+    .close_${styleId} {
+      border: 3px solid dimgray;
+      cursor: pointer;
+      font-size: 0;
+      height: 30px;
+      position: absolute;
+      right: -15px;
+      top: -15px;
+      width: 30px;
+      border-radius: 100%;
+    }
+    .close_${styleId}:after {
+      content: '+';
+      font-size: 30px;
+      font-weight: normal;
+      line-height: 1em;
+      text-align: center;
+      color: dimgray;
+      position: absolute;
+      top: -2px;
+      right: 4px;
+      transform: rotate(45deg);
+    }
   `
+
+  const cleanScript = (s, keepNewLine = true) => {
+    return s
+      .split(/\n/g)
+      .filter(v => v.trim())
+      .map(v => (keepNewLine ? '\t' : '') + v.trim())
+      .join(keepNewLine ? '\n' : '');
+  }
 
   const iframeScript = `
     var iframe = document.createElement('iframe');
@@ -102,28 +134,43 @@ function ModalEmbed({ initialData, closeModal }) {
   `;
 
   const modalModeScript = `
-    const style = document.createElement('style');
-    style.type = "text/css";
-    style.innerHTML = "${modalModeStyle.trim().replace(/([\n\t])/g, '').replace(/\s\s/g, '')}";
-    document.head.appendChild(style);
+    function openForm_${styleId}() {
+      ${cleanScript(iframeScript)}
 
-    var backdrop = document.createElement('div');
-    backdrop.classList.add('backdrop_${styleId}');
-    
-    var lightbox = document.createElement('div');
-    lightbox.classList.add('lightbox_${styleId}');
+      var style = document.createElement('style');
+      style.type = "text/css";
+      style.innerHTML = "${modalModeStyle.trim().replace(/([\n\t])/g, '').replace(/\s\s/g, '')}";
+      document.head.appendChild(style);
 
-    var iframeWrapper = document.createElement('div');
-    iframeWrapper.classList.add('iframeWrapper_${styleId}');
+      var backdrop = document.createElement('div');
+      backdrop.classList.add('backdrop_${styleId}');
+      
+      var lightbox = document.createElement('div');
+      lightbox.classList.add('lightbox_${styleId}');
 
-    iframeWrapper.appendChild(iframe);
+      var iframeWrapper = document.createElement('div');
+      iframeWrapper.classList.add('iframeWrapper_${styleId}');
 
-    lightbox.appendChild(iframeWrapper);
-    backdrop.appendChild(lightbox);
+      iframeWrapper.appendChild(iframe);
 
-    document.body.appendChild(backdrop);
+      var closeBtn = document.createElement('button');
+      closeBtn.classList.add('close_${styleId}');
+      closeBtn.type = 'button';
+      closeBtn.role = 'button';
+      closeBtn.innerText = 'Close';
+      closeBtn.addEventListener('click', function() {
+        backdrop.classList.remove('open_${styleId}');
+      });
 
-    setTimeout(() => backdrop.classList.add('open_${styleId}'), 2000);
+      lightbox.appendChild(iframeWrapper);
+      lightbox.appendChild(closeBtn);
+      backdrop.appendChild(lightbox);
+
+      document.body.appendChild(backdrop);
+      setTimeout(function() {
+        backdrop.classList.add('open_${styleId}');
+      }, 50);
+    }
   `;
 
   const customModeScript = `
@@ -131,25 +178,20 @@ function ModalEmbed({ initialData, closeModal }) {
     container && (container.innerHTML = iframe.outerHTML);
   `;
 
-  const cleanScript = (s, keepNewLine = true) => {
-    return s
-      .split(/\n/g)
-      .filter(v => v.trim())
-      .map(v => (keepNewLine ? '\t' : '') + v.trim())
-      .join(keepNewLine ? '\n' : '');
-  }
-
   const embedScript =
     `<script>
-    (() => {
-      ${cleanScript(iframeScript)}
-      ${cleanScript(showFormAsModal ? modalModeScript : customModeScript)}
-    })();
+    ${cleanScript(showFormAsModal ? modalModeScript : customModeScript)}
 </script>`;
 
 
   function copyContainer() {
     navigator.clipboard.writeText(containerDiv);
+  }
+
+  const functionOpenForm = `openForm_${styleId}();`;
+
+  function copyFunctionOpenForm() {
+    navigator.clipboard.writeText(functionOpenForm);
   }
 
   function copyScript() {
@@ -178,7 +220,7 @@ function ModalEmbed({ initialData, closeModal }) {
     }
   }
 
-  function getSyntaxCode(event) {
+  function copySyntaxCode(event) {
     let code
     if (event.target.tagName === 'PRE') {
       code = event.target.querySelector('code')
@@ -189,21 +231,24 @@ function ModalEmbed({ initialData, closeModal }) {
     else {
       code = event.target.closest('code')
     }
-    return code
+    if (!code) return
+    selectAllElementText(code)
   }
 
   function onClickEmbedContainer(event) {
-    const code = getSyntaxCode(event)
-    if (!code) return
-    selectAllElementText(code)
+    copySyntaxCode(event)
     copyContainer()
   }
 
   function onClickEmbedScript(event) {
-    const code = getSyntaxCode(event)
-    if (!code) return
-    selectAllElementText(code)
+    copySyntaxCode(event)
+
     copyScript()
+  }
+
+  function onClickFunctionOpenForm(event) {
+    copySyntaxCode(event)
+    copyFunctionOpenForm()
   }
 
   return (
@@ -264,7 +309,17 @@ function ModalEmbed({ initialData, closeModal }) {
         />
         <br />
         <Stack spacing={4}>
-          {!showFormAsModal && (
+          {showFormAsModal ? (
+            <>
+              <Flex gap={2}>
+                <Icon color="primary600" as={Duplicate} onClick={copyFunctionOpenForm} style={{ cursor: 'pointer' }} />
+                Copy this function and trigger call on your own or bind to any button
+              </Flex>
+              <SyntaxHighlighter language="htmlbars" style={docco} onClick={onClickFunctionOpenForm}>
+                {functionOpenForm}
+              </SyntaxHighlighter>
+            </>
+          ) : (
             <>
               <Flex gap={2}>
                 <Icon color="primary600" as={Duplicate} onClick={copyContainer} style={{ cursor: 'pointer' }} />
