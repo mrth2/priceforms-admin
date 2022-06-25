@@ -52,10 +52,10 @@ function ModalEmbed({ initialData, closeModal }) {
     }
   }, [useFullHeight, height]);
 
-  const styleId = Math.random().toString(36).substring(2, 5) + Math.random().toString(36).substring(2, 5);
+  const formUid = Math.random().toString(36).substring(2, 5) + Math.random().toString(36).substring(2, 5);
 
   const modalModeStyle = `
-    .backdrop_${styleId} {
+    .backdrop_${formUid} {
       align-items: center;
       bottom: -1000px;
       display: flex;
@@ -69,13 +69,13 @@ function ModalEmbed({ initialData, closeModal }) {
       transition: background-color 300ms ease-in-out, z-index 300ms step-end;
       z-index: -1;
     }
-    .backdrop_${styleId}.open_${styleId} {
+    .backdrop_${formUid}.open_${formUid} {
       background-color: rgba(119, 119, 119, 0.7);
       pointer-events: auto;
       transition: background-color 300ms ease-in-out;
       z-index: 1100;
     }
-    .lightbox_${styleId} {
+    .lightbox_${formUid} {
       background-color: white;
       box-shadow: 0 0 12px rgb(0 0 0 / 30%), 0 1px 5px rgb(0 0 0 / 20%);
       max-height: 100%;
@@ -83,7 +83,7 @@ function ModalEmbed({ initialData, closeModal }) {
       position: relative;
       border-radius: 8px;
     }
-    .iframeWrapper_${styleId} {
+    .iframeWrapper_${formUid} {
       -webkit-overflow-scrolling: touch;
       overflow: auto;
       width: min(90vw, 680px);
@@ -91,7 +91,7 @@ function ModalEmbed({ initialData, closeModal }) {
       max-width: 100%;
       border-radius: 8px;
     }
-    .close_${styleId} {
+    .close_${formUid} {
       border: 3px solid dimgray;
       cursor: pointer;
       font-size: 0;
@@ -102,7 +102,7 @@ function ModalEmbed({ initialData, closeModal }) {
       width: 30px;
       border-radius: 100%;
     }
-    .close_${styleId}:after {
+    .close_${formUid}:after {
       content: '+';
       font-size: 30px;
       font-weight: normal;
@@ -134,8 +134,8 @@ function ModalEmbed({ initialData, closeModal }) {
   `;
 
   const modalModeScript = `
-    function openForm_${styleId}() {
-      ${cleanScript(iframeScript)}
+    function openForm_${formUid}() {
+      ${iframeScript}
 
       var style = document.createElement('style');
       style.type = "text/css";
@@ -143,23 +143,23 @@ function ModalEmbed({ initialData, closeModal }) {
       document.head.appendChild(style);
 
       var backdrop = document.createElement('div');
-      backdrop.classList.add('backdrop_${styleId}');
+      backdrop.classList.add('backdrop_${formUid}');
       
       var lightbox = document.createElement('div');
-      lightbox.classList.add('lightbox_${styleId}');
+      lightbox.classList.add('lightbox_${formUid}');
 
       var iframeWrapper = document.createElement('div');
-      iframeWrapper.classList.add('iframeWrapper_${styleId}');
+      iframeWrapper.classList.add('iframeWrapper_${formUid}');
 
       iframeWrapper.appendChild(iframe);
 
       var closeBtn = document.createElement('button');
-      closeBtn.classList.add('close_${styleId}');
+      closeBtn.classList.add('close_${formUid}');
       closeBtn.type = 'button';
       closeBtn.role = 'button';
       closeBtn.innerText = 'Close';
       closeBtn.addEventListener('click', function() {
-        backdrop.classList.remove('open_${styleId}');
+        backdrop.classList.remove('open_${formUid}');
       });
 
       lightbox.appendChild(iframeWrapper);
@@ -168,14 +168,18 @@ function ModalEmbed({ initialData, closeModal }) {
 
       document.body.appendChild(backdrop);
       setTimeout(function() {
-        backdrop.classList.add('open_${styleId}');
+        backdrop.classList.add('open_${formUid}');
       }, 50);
     }
   `;
 
   const customModeScript = `
-    var container = document.getElementById('priceform-embed');
-    container && (container.innerHTML = iframe.outerHTML);
+    (function () {
+      ${iframeScript}
+
+      var container = document.getElementById('priceform-embed');
+      container && (container.innerHTML = iframe.outerHTML);
+    })();
   `;
 
   const embedScript =
@@ -188,7 +192,7 @@ function ModalEmbed({ initialData, closeModal }) {
     navigator.clipboard.writeText(containerDiv);
   }
 
-  const functionOpenForm = `openForm_${styleId}();`;
+  const functionOpenForm = `openForm_${formUid}();`;
 
   function copyFunctionOpenForm() {
     navigator.clipboard.writeText(functionOpenForm);
