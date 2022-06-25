@@ -21,14 +21,14 @@ function ModalEmbed({ initialData, closeModal }) {
   const [useFullHeight, setUseFullHeight] = React.useState(false);
 
   const [width, setWidth] = React.useState('100%');
-  const [height, setHeight] = React.useState(800);
+  const [height, setHeight] = React.useState(700);
 
   const onUseFullWidth = React.useCallback(() => {
     // toggle off
     if (useFullWidth) {
       setUseFullWidth(false);
       if (width === '100%') {
-        setWidth(800);
+        setWidth(700);
       }
     }
     // toggle on
@@ -42,7 +42,7 @@ function ModalEmbed({ initialData, closeModal }) {
     if (useFullHeight) {
       setUseFullHeight(false);
       if (height === '100%') {
-        setHeight(800);
+        setHeight(700);
       }
     }
     // toggle on
@@ -85,8 +85,10 @@ function ModalEmbed({ initialData, closeModal }) {
     .iframeWrapper_${styleId} {
       -webkit-overflow-scrolling: touch;
       overflow: auto;
+      width: max(90vw, 600px);
       max-height: 100%;
       max-width: 100%;
+      border-radius: 8px;
     }
   `
 
@@ -102,7 +104,7 @@ function ModalEmbed({ initialData, closeModal }) {
   const modalModeScript = `
     const style = document.createElement('style');
     style.type = "text/css";
-    style.innerHTML = "${modalModeStyle.replace(/([\s\n])/g, '')}";
+    style.innerHTML = "${modalModeStyle.trim().replace(/([\n\t])/g, '').replace(/\s\s/g, '')}";
     document.head.appendChild(style);
 
     var backdrop = document.createElement('div');
@@ -154,6 +156,56 @@ function ModalEmbed({ initialData, closeModal }) {
     navigator.clipboard.writeText(cleanScript(embedScript, false));
   }
 
+  function selectAllElementText(el) {
+    let sel, range;
+    if (window.getSelection && document.createRange) { //Browser compatibility
+      sel = window.getSelection()
+      if (sel.toString() == '') { // no text selection
+        window.setTimeout(function () {
+          range = document.createRange() // range object
+          range.selectNodeContents(el) // sets Range
+          sel.removeAllRanges() // remove all ranges from selection
+          sel.addRange(range) // add Range to a Selection.
+        }, 1);
+      }
+    } else if (document.selection) { //older ie
+      sel = document.selection.createRange()
+      if (sel.text == '') { // no text selection
+        range = document.body.createTextRange() // Creates TextRange object
+        range.moveToElementText(el) // sets Range
+        range.select() // make selection.
+      }
+    }
+  }
+
+  function getSyntaxCode(event) {
+    let code
+    if (event.target.tagName === 'PRE') {
+      code = event.target.querySelector('code')
+    }
+    else if (event.target.tagName === 'CODE') {
+      code = event.target
+    }
+    else {
+      code = event.target.closest('code')
+    }
+    return code
+  }
+
+  function onClickEmbedContainer(event) {
+    const code = getSyntaxCode(event)
+    if (!code) return
+    selectAllElementText(code)
+    copyContainer()
+  }
+
+  function onClickEmbedScript(event) {
+    const code = getSyntaxCode(event)
+    if (!code) return
+    selectAllElementText(code)
+    copyScript()
+  }
+
   return (
     <ModalLayout onClose={closeModal} labelledBy="title">
       <ModalHeader>
@@ -199,7 +251,7 @@ function ModalEmbed({ initialData, closeModal }) {
                 onValueChange={(value) => setHeight(value)}
                 step={5}
                 placeholder="Enter height of the form"
-                hint="Default: 800px"
+                hint="Default: 700px"
               />
             )}
           </Stack>
@@ -218,7 +270,7 @@ function ModalEmbed({ initialData, closeModal }) {
                 <Icon color="primary600" as={Duplicate} onClick={copyContainer} style={{ cursor: 'pointer' }} />
                 Copy this div to any place you want the form to display
               </Flex>
-              <SyntaxHighlighter language="htmlbars" style={docco}>
+              <SyntaxHighlighter language="htmlbars" style={docco} onClick={onClickEmbedContainer}>
                 {containerDiv}
               </SyntaxHighlighter>
             </>
@@ -233,7 +285,7 @@ function ModalEmbed({ initialData, closeModal }) {
             </Box>
             tag
           </Flex>
-          <SyntaxHighlighter language="htmlbars" style={docco}>
+          <SyntaxHighlighter language="htmlbars" style={docco} onClick={onClickEmbedScript}>
             {embedScript}
           </SyntaxHighlighter>
         </Stack>
