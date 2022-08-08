@@ -14,18 +14,20 @@
     "progress": {
       "type": "enumeration",
       "enum": [
+        "primary",
         "blue",
         "red"
       ],
-      "default": "blue"
+      "default": "primary"
     },
     "button": {
       "type": "enumeration",
       "enum": [
+        "primary",
         "blue",
         "red"
       ],
-      "default": "blue"
+      "default": "primary"
     }
   }
 }
