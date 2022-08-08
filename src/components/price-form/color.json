@@ -7,6 +7,10 @@
   },
   "options": {},
   "attributes": {
+    "primary": {
+      "type": "string",
+      "default": "#143050"
+    },
     "progress": {
       "type": "enumeration",
       "enum": [
