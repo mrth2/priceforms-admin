@@ -6,6 +6,12 @@
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
+function isIsoDate(str) {
+  if (!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(str)) return false;
+  const d = new Date(str); 
+  return d instanceof Date && !isNaN(d) && d.toISOString()===str; // valid date 
+}
+
 module.exports = createCoreService('api::form-submission.form-submission', () => ({
   getFormDashboardUrl(form) {
     return `https://${form.subDomain}.${process.env.FRONTEND_DOMAIN}`;
@@ -49,7 +55,7 @@ module.exports = createCoreService('api::form-submission.form-submission', () =>
             zip: submission.zip,
             url: `${strapi.service('api::form-submission.form-submission').getFormDashboardUrl(submission.form)}/admin/submissions/${submission.id}`,
             data: submission.data.map(d => (
-              `<li><strong>${d.title}:</strong> ${d.answer}</li>`
+              `<li><strong>${d.title}:</strong> ${isIsoDate(d.answer) ? new Date(d.answer).toString() : d.answer}</li>`
             ))
           },
         }
