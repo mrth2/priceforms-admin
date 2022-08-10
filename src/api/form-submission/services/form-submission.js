@@ -55,7 +55,7 @@ module.exports = createCoreService('api::form-submission.form-submission', () =>
             zip: submission.zip,
             url: `${strapi.service('api::form-submission.form-submission').getFormDashboardUrl(submission.form)}/admin/submissions/${submission.id}`,
             data: submission.data.map(d => (
-              `<li><strong>${d.title}:</strong> ${isIsoDate(d.answer) ? new Date(d.answer).toString() : d.answer}</li>`
+              `<li><strong>${d.title}:</strong> ${isIsoDate(d.answer) ? new Date(d.answer).toDateString() : d.answer}</li>`
             ))
           },
         }
