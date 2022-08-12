@@ -248,6 +248,14 @@
       },
       "type": "string"
     },
+    "hotjarId": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
     "emailReceivers": {
       "pluginOptions": {
         "i18n": {
