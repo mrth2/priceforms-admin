@@ -35,6 +35,7 @@ module.exports = {
     }
     // get form owner
     const owner = form.owner;
+    console.log(owner);
     if (!owner) {
       return ctx.badRequest('form.owner.not.found');
     }

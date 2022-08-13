@@ -14,7 +14,9 @@ function MagicLink() {
   const [loading, setLoading] = React.useState(false);
   const signIn = React.useCallback(async () => {
     try {
-      const token = localStorage.getItem('jwtToken');
+      const localToken = localStorage.getItem('jwtToken');
+      const sessionToken = sessionStorage.getItem('jwtToken');
+      const token = localToken || sessionToken;
       if (!token) {
         return null;
       }
