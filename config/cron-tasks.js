@@ -1,7 +1,7 @@
 module.exports = {
-  // cronjob run once per hour to notify un-notified submission
-  '0 0 * * * *': async ({ strapi }) => {
-    // query all non-notified submissions are older than 15 minutes of inactivity
+  // cronjob run once per 10 minutes to notify un-notified submission
+  '*/10 * * * *': async ({ strapi }) => {
+    // query all non-notified submissions are older than 5 minutes of inactivity
     // and mark them as notified
     const submissions = await strapi.db.query('api::form-submission.form-submission').findMany({
       where: {
@@ -14,7 +14,7 @@ module.exports = {
           }
         ],
         updatedAt: {
-          $lte: new Date(Date.now() - 15 * 60 * 1000).toISOString()
+          $lte: new Date(Date.now() - 5 * 60 * 1000).toISOString()
         }
       },
       populate: ['form', 'category', 'subscriber', 'owner'],
