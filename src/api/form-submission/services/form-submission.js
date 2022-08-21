@@ -122,6 +122,7 @@ module.exports = createCoreService('api::form-submission.form-submission', () =>
         strapi.log.error(e.message);
       } else {
         strapi.log.error(`Couldn't send test email: ${e.message}.`);
+        console.log(e);
       }
     }
   }
