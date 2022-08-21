@@ -1,4 +1,5 @@
 'use strict';
+const util = require('util');
 
 /**
  * form-submission service.
@@ -122,7 +123,7 @@ module.exports = createCoreService('api::form-submission.form-submission', () =>
         strapi.log.error(e.message);
       } else {
         strapi.log.error(`Couldn't send test email: ${e.message}.`);
-        console.log(e);
+        console.log(util.inspect(e, { showHidden: false, depth: null }));
       }
     }
   }
