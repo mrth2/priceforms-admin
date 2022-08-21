@@ -65,7 +65,9 @@ module.exports = createCoreService('api::form-submission.form-submission', () =>
         if (submission.form.emailReceivers) {
           const extraReceivers = submission.form.emailReceivers.split('\n');
           if (extraReceivers.length) {
-            ownerNotifyEmail.cc = extraReceivers;
+            // filter out owner email in the list of extra receivers
+            const withoutOwner = extraReceivers.filter(e => e !== submission.owner.email);
+            if (withoutOwner) ownerNotifyEmail.cc = withoutOwner;
           }
         }
         // email to subscriber
