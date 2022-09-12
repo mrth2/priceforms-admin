@@ -116,3 +116,4 @@ build
 priceforms.dump
 latest.dump
 .env.local
+dist/*
