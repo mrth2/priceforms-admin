@@ -26,7 +26,11 @@ export default {
         primary600: '#4690CB',
         primary500: '#143050',
       }
-    }
+    },
+    notifications: {
+      release: process.env.NODE_ENV !== 'production', // hide release notifications in production
+    },
+    tutorials: process.env.NODE_ENV !== 'production', // hide tutorials in production
   },
   bootstrap() { },
 }

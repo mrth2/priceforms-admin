@@ -60,6 +60,15 @@
       "relation": "oneToOne",
       "target": "api::form-category-flow.form-category-flow"
     },
+    "backButton": {
+      "type": "enumeration",
+      "enum": [
+        "form",
+        "yes",
+        "no"
+      ],
+      "default": "form"
+    },
     "backButtonOnBottom": {
       "type": "boolean",
       "default": false

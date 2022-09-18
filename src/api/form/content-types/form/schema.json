@@ -287,6 +287,15 @@
         "Poppins"
       ],
       "default": "Muli"
+    },
+    "hasBack": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": false
     }
   }
 }
