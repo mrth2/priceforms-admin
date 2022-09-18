@@ -7,6 +7,9 @@
 const { createCoreService } = require('@strapi/strapi').factories;
 
 function getFullName(subscriber) {
+  if (subscriber.fullName) {
+    return subscriber.fullName;
+  }
   if (subscriber.firstName && subscriber.lastName) {
     return `${subscriber.firstName} ${subscriber.lastName}`;
   }

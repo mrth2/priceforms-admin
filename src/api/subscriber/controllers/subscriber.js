@@ -8,7 +8,7 @@ const { createCoreController } = require('@strapi/strapi').factories;
 
 module.exports = createCoreController('api::subscriber.subscriber', ({ strapi }) => ({
   async replace(ctx) {
-    const { email, phone, firstName, lastName } = ctx.request.body;
+    const { email, phone, firstName, lastName, fullName } = ctx.request.body;
 
     const subscriber = await strapi.db.query('api::subscriber.subscriber').findOne({
       where: { email },
@@ -18,9 +18,10 @@ module.exports = createCoreController('api::subscriber.subscriber', ({ strapi })
     const payload = {
       email,
       phone,
-      firstName,
-      lastName,
     };
+    if (firstName) payload.firstName = firstName;
+    if (lastName) payload.lastName = lastName;
+    if (fullName) payload.fullName = fullName;
     // if subscriber exist, update
     if (subscriber) {
       entity = await strapi.db.query('api::subscriber.subscriber').update({

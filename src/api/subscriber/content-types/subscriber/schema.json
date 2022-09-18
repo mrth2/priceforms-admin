@@ -4,7 +4,8 @@
   "info": {
     "singularName": "subscriber",
     "pluralName": "subscribers",
-    "displayName": "Subscriber"
+    "displayName": "Subscriber",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -32,6 +33,9 @@
       "target": "api::form-submission.form-submission",
       "private": true,
       "mappedBy": "subscriber"
+    },
+    "fullName": {
+      "type": "string"
     }
   }
 }
