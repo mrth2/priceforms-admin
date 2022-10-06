@@ -21,7 +21,7 @@ module.exports = createCoreService('api::form-submission.form-submission', () =>
     try {
       // auto send email to form owner when the submission is updated with status complete
       // ignore notified submission to avoid duplicate emails
-      if (submission.status === 'complete' && !submission.notified && submission.owner) {
+      if ((submission.status === 'complete' || submission.status === 'partial') && !submission.notified && submission.owner) {
         // strapi.log.info(`-- Sending email to ${submission.owner.email} from user ${clientName} (${submission.subscriber.email})`);
         const clientName = strapi.service('api::subscriber.subscriber').getFullName(submission.owner);
         const subscriberName = strapi.service('api::subscriber.subscriber').getFullName(submission.subscriber);
@@ -70,40 +70,44 @@ module.exports = createCoreService('api::form-submission.form-submission', () =>
             if (withoutOwner) ownerNotifyEmail.cc = withoutOwner;
           }
         }
-        // email to subscriber
-        const template = await strapi.db.query('api::form-email-template.form-email-template').findOne({
-          where: {
-            form: submission.form.id,
-            type: 'subscriber_notification'
-          }
-        });
+        // push owner notification to queue
         const emails = [ownerNotifyEmail];
-        if (template) {
-          const subscriberNotifyEmail = {
-            from: {
-              email: 'noreply@priceforms.net',
-              name: template.fromName || clientName,
-            },
-            to: {
-              email: submission.subscriber.email,
-              name: subscriberName
-            },
-            replyTo: {
-              email: template.replyTo || submission.owner.email,
-              name: template.fromName || clientName,
-            },
-            template_id: 'd-07bf0490105640b48c6607f5137af523',
-            subject: template.subject,
-            dynamic_template_data: {
-              body: template.body
-                // parse user name
-                .replace(/\{\{\{user.name\}\}\}/g, subscriberName)
-                // parse markdown enter
-                .replace(/\\n/g, '<br/>'),
+        // email to subscriber, only when submission is complete
+        if (submission.status === 'complete') {
+          const template = await strapi.db.query('api::form-email-template.form-email-template').findOne({
+            where: {
+              form: submission.form.id,
+              type: 'subscriber_notification'
             }
-          }
-          emails.push(subscriberNotifyEmail);
-        };
+          });
+          if (template) {
+            // when template is found & submission is complete, push subscriber notification to queue
+            const subscriberNotifyEmail = {
+              from: {
+                email: 'noreply@priceforms.net',
+                name: template.fromName || clientName,
+              },
+              to: {
+                email: submission.subscriber.email,
+                name: subscriberName
+              },
+              replyTo: {
+                email: template.replyTo || submission.owner.email,
+                name: template.fromName || clientName,
+              },
+              template_id: 'd-07bf0490105640b48c6607f5137af523',
+              subject: template.subject,
+              dynamic_template_data: {
+                body: template.body
+                  // parse user name
+                  .replace(/\{\{\{user.name\}\}\}/g, subscriberName)
+                  // parse markdown enter
+                  .replace(/\\n/g, '<br/>'),
+              }
+            }
+            emails.push(subscriberNotifyEmail);
+          };
+        }
         await Promise.all(emails.map(email => strapi.plugin('email').service('email').send(email)))
           .then(async () => {
             // strapi.log.info('-- email sent');
