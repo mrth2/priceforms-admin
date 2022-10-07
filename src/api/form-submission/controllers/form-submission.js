@@ -32,20 +32,29 @@ module.exports = createCoreController('api::form-submission.form-submission', ({
     // overwrite body data with owner Id
     await getFormOwnerId(strapi, ctx);
     // check if there is submission already submitted from this ip address
-    const existingSubmission = await strapi.db.query('api::form-submission.form-submission').findOne({
-      where: {
-        ipAddress: ctx.request.body.data.ipAddress,
-        form: ctx.request.body.data.form?.id || ctx.request.body.data.form,
-      },
-    });
-    if (existingSubmission) {
-      return ctx.badRequest('You have already submitted this form');
+    // ignore local ip
+    const ipAddress = ctx.request.body.data.ipAddress;
+    if (ipAddress !== '127.0.0.1') {
+      const existingSubmission = await strapi.db.query('api::form-submission.form-submission').findOne({
+        where: {
+          ipAddress: ipAddress,
+          form: ctx.request.body.data.form?.id || ctx.request.body.data.form,
+        },
+      });
+      if (existingSubmission) {
+        return ctx.badRequest('You have already submitted this form');
+      }
     }
-    const response = await super.create(ctx);
-    // populate all the fields of created submission
-    return {
-      data: await populateSubmission(strapi, response.data.id),
-      meta: response.meta,
+    try {
+      const response = await super.create(ctx);
+      console.log(response);
+      // populate all the fields of created submission
+      return {
+        data: await populateSubmission(strapi, response.data.id),
+        meta: response.meta,
+      }
+    } catch (e) {
+      return ctx.badRequest(e);
     }
   },
   async update(ctx) {
