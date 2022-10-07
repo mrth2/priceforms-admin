@@ -84,6 +84,9 @@
     "notified": {
       "type": "boolean",
       "default": false
+    },
+    "ipAddress": {
+      "type": "string"
     }
   }
 }

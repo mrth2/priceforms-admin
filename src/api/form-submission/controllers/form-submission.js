@@ -22,12 +22,24 @@ async function getFormOwnerId(strapi, ctx) {
     populate: ['owner'],
   });
   ctx.request.body.data.owner = form.owner.id;
+  // also set the request ip address
+  ctx.request.body.data.ipAddress = ctx.request.socket.remoteAddress || ctx.request.ip;
 }
 
 module.exports = createCoreController('api::form-submission.form-submission', ({ strapi }) => ({
   async create(ctx) {
     // overwrite body data with owner Id
     await getFormOwnerId(strapi, ctx);
+    // check if there is submission already submitted from this ip address
+    const existingSubmission = await strapi.db.query('api::form-submission.form-submission').findOne({
+      where: {
+        ipAddress: ctx.request.body.data.ipAddress,
+        form: ctx.request.body.data.form?.id || ctx.request.body.data.form,
+      },
+    });
+    if (existingSubmission) {
+      return ctx.badRequest('You have already submitted this form');
+    }
     const response = await super.create(ctx);
     // populate all the fields of created submission
     return {
