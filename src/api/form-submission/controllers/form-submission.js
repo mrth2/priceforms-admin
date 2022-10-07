@@ -23,7 +23,8 @@ async function getFormOwnerId(strapi, ctx) {
   });
   ctx.request.body.data.owner = form.owner.id;
   // also set the request ip address
-  ctx.request.body.data.ipAddress = ctx.request.socket.remoteAddress || ctx.request.ip;
+  const ipAddress = ctx.request.headers['x-forwarded-for']?.split(',')[0] || ctx.request.socket.remoteAddress || ctx.request.ip;
+  ctx.request.body.data.ipAddress = ipAddress;
 }
 
 module.exports = createCoreController('api::form-submission.form-submission', ({ strapi }) => ({
