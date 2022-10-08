@@ -63,5 +63,10 @@ module.exports = ({ env }) => ({
   'embed-code': {
     enabled: true,
     resolve: './src/plugins/embed-code'
-  }
+  },
+  'form-cloner': {
+    enabled: true,
+    resolve: './src/plugins/form-cloner'
+  },
+
 });

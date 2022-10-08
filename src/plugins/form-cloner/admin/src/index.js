@@ -3,7 +3,7 @@ import pluginPkg from '../../package.json';
 import pluginId from './pluginId';
 import Initializer from './components/Initializer';
 import PluginIcon from './components/PluginIcon';
-import EmbedCode from './components/EmbedCode';
+import FormCloner from './components/FormCloner';
 
 const name = pluginPkg.strapi.name;
 
@@ -19,8 +19,8 @@ export default {
 
   bootstrap(app) {
     app.injectContentManagerComponent('editView', 'right-links', {
-      name: 'FormEmbedCode',
-      Component: EmbedCode,
+      name: 'FormCloner',
+      Component: FormCloner,
     });
   },
   async registerTrads({ locales }) {

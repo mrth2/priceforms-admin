@@ -1,0 +1,27 @@
+{
+  "name": "form-cloner",
+  "version": "0.0.0",
+  "description": "This is the description of the plugin.",
+  "strapi": {
+    "name": "form-cloner",
+    "description": "Fastest way to complete duplicate a form",
+    "kind": "plugin",
+    "displayName": "Form Cloner"
+  },
+  "dependencies": {},
+  "author": {
+    "name": "Hoa Trinh",
+    "email": "hi@hoatrinh.dev"
+  },
+  "maintainers": [
+    {
+      "name": "Hoa Trinh",
+      "email": "hi@hoatrinh.dev"
+    }
+  ],
+  "engines": {
+    "node": ">=12.x.x <=16.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}
