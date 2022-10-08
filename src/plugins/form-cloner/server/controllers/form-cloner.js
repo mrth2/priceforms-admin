@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * embed-code.js controller
+ * form-cloner.js controller
  *
- * @description: A set of functions called "actions" of the `embed-code` plugin.
+ * @description: A set of functions called "actions" of the `form-cloner` plugin.
  */
 
 const _ = require("lodash");

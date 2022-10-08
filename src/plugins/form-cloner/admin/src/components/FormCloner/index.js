@@ -3,7 +3,7 @@ import React from 'react';
 import { useCMEditViewDataManager } from '@strapi/helper-plugin';
 import Duplicate from '@strapi/icons/Duplicate'
 import { Button } from '@strapi/design-system/Button';
-import ModalLoading from '../ModalLoading';
+import ModalDuplicate from '../ModalDuplicate';
 
 function FormCloner() {
   const { slug, initialData } = useCMEditViewDataManager();
@@ -11,27 +11,19 @@ function FormCloner() {
     return null;
   }
 
-  const [isLoading, setIsLoading] = React.useState(false);
-
-  const cloneForm = React.useCallback(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }, [isLoading]);
+  const [modalIsOpen, setModalIsOpen] = React.useState(false);
 
   return (
     <>
       <Button
         startIcon={<Duplicate />}
-        loading={isLoading}
         variant="secondary"
-        onClick={cloneForm}
+        onClick={() => setModalIsOpen(true)}
       >
         Duplicate This Form
       </Button>
-      {isLoading && (
-        <ModalLoading form={initialData} />
+      {modalIsOpen && (
+        <ModalDuplicate form={initialData} closeModal={() => setModalIsOpen(false)} />
       )}
     </>
   );
