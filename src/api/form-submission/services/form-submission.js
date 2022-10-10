@@ -21,7 +21,7 @@ module.exports = createCoreService('api::form-submission.form-submission', () =>
     try {
       // auto send email to form owner when the submission is updated with status complete
       // ignore notified submission to avoid duplicate emails
-      if ((submission.status === 'complete' || submission.status === 'partial') && !submission.notified && submission.owner) {
+      if ((submission.status === 'complete' || submission.status === 'partial') && !submission.notified && submission.owner && submission.subscriber) {
         // strapi.log.info(`-- Sending email to ${submission.owner.email} from user ${clientName} (${submission.subscriber.email})`);
         const clientName = strapi.service('api::subscriber.subscriber').getFullName(submission.owner);
         const subscriberName = strapi.service('api::subscriber.subscriber').getFullName(submission.subscriber);
